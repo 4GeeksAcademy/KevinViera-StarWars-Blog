@@ -20,7 +20,7 @@ export const PlanetCards = ({ planet }) => {
     });
   };
 
-  const placeholderImage = "https://via.placeholder.com/400x200?text=Star+Wars+Planet";
+  const placeholderImage = "https://dummyjson.com/image/400x200?type=webp";
 
   return (
     <div className="card m-3" style={{ width: "18rem" }}>
@@ -33,9 +33,9 @@ export const PlanetCards = ({ planet }) => {
         <h5 className="card-title">{planet.name}</h5>
         {details ? (
           <>
-            <p>🌦 Climate: {details.climate}</p>
-            <p>🌍 Terrain: {details.terrain}</p>
-            <p>👥 Population: {details.population}</p>
+            <p> Climate: {details.climate}</p>
+            <p> Terrain: {details.terrain}</p>
+            <p> Population: {details.population}</p>
             <div className="d-flex justify-content-between">
               <button
                 className="btn btn-outline-warning"

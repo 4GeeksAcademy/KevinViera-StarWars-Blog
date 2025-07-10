@@ -2,8 +2,15 @@ import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link } from "react-router-dom";
 
 export const Navbar = () => {
-	const { store } = useGlobalReducer();
+	const { dispatch, store } = useGlobalReducer(); 
 	const favorites = store.favorites || [];
+
+	const handleRemoveFavorite = (name, type) => {
+		dispatch({
+			type: "REMOVE_FAVORITE",
+			payload: { name, type }
+		});
+	};
 
 	return (
 		<nav className="navbar navbar-light bg-light">
@@ -27,9 +34,14 @@ export const Navbar = () => {
 					>
 						Favorites ({favorites.length})
 					</button>
-					<ul className="dropdown-menu dropdown-menu-end" aria-labelledby="favoritesDropdown">
+					<ul
+						className="dropdown-menu dropdown-menu-end"
+						aria-labelledby="favoritesDropdown"
+					>
 						{favorites.length === 0 ? (
-							<li><span className="dropdown-item">No favorites yet</span></li>
+							<li>
+								<span className="dropdown-item">No favorites yet</span>
+							</li>
 						) : (
 							favorites.map((fav, i) => (
 								<li key={i}>
@@ -38,10 +50,10 @@ export const Navbar = () => {
 											{fav.name} {fav.type ? `(${fav.type})` : ""}
 										</span>
 										<button
-											className="btn btn-sm btn-danger"
-											onClick={() => dispatch({ type: "REMOVE_FAVORITE", payload: fav })}
+											onClick={() => handleRemoveFavorite(fav.name, fav.type)}
+											className="btn btn-sm btn-outline-danger ms-2"
 										>
-											❌
+											X
 										</button>
 									</div>
 								</li>

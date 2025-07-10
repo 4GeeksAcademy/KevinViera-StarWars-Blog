@@ -13,7 +13,22 @@ export const storeReducer = (state, action) => {
       return { ...state, planets: action.payload };
 
     case "ADD_FAVORITE":
-      return { ...state, favorites: [...state.favorites, action.payload] };
+      const exists = state.favorites.some(
+        fav => fav.name === action.payload.name && fav.type === action.payload.type
+      );
+      if (exists) return state;
+
+      return {
+        ...state,
+        favorites: [...state.favorites, action.payload]
+      };
+    case "REMOVE_FAVORITE":
+      return {
+        ...state,
+        favorites: state.favorites.filter(
+          fav => fav.name !== action.payload.name || fav.type !== action.payload.type
+        )
+      };
 
     default:
       console.error("Unknown action:", action.type);
